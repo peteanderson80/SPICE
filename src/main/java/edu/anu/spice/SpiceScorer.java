@@ -78,19 +78,6 @@ public class SpiceScorer {
 			filters.put("Cardinality", TupleFilter.cardinalityFilter);
 			filters.put("Color", TupleFilter.colorFilter);
 			filters.put("Size", TupleFilter.sizeFilter);
-			try {
-				NoveltyFilter trainFilter = new NoveltyFilter(parser, "/coco/annotations/captions_train2014.json");
-				filters.put("NotInCocoTrain", trainFilter);
-				NoveltyFilter trainvalFilter = new NoveltyFilter(parser, "/coco/annotations/captions_val2014.json");
-				//trainvalFilter.add(trainFilter);
-				filters.put("NotInCocoTrainVal", trainvalFilter);
-			} catch (IOException e) {
-				System.err.println("Could not find coco annotation files for novelty filters.");
-				e.printStackTrace();
-			} catch (ParseException e){
-				System.err.println("NoveltyFilter could not parse json");
-				e.printStackTrace();
-			}
 		}
 		
 		// Parse test and refs from input file

@@ -44,7 +44,7 @@ Building SPICE from source is NOT required as precompiled jar files are availabl
 
 ## References ##
 If you report SPICE scores, please cite the SPICE paper:
-- [Semantic Propositional Image Caption Evaluation (SPICE)] - TODO link, bibtex
+- [Semantic Propositional Image Caption Evaluation (SPICE)](http://panderson.me/images/SPICE.pdf) [bibtex](http://panderson.me/images/SPICE.bib)
 
 ## Developers ##
 - [Peter Anderson](http://panderson.me) (Australian National University) (peter.anderson@anu.edu.au)
