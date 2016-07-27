@@ -34,14 +34,6 @@ public class Evaluation implements JSONAware {
 	public int tp; 		// true positives
 	public int fp; 		// false positives
 	public int fn; 		// false negatives
-	
-	public double wf; 	// weighted f-1 score
-	public double wpr; 	// weighted precision
-	public double wre; 	// weighted recall	
-	public double wtp; 	// weighted true positives
-	public double wfp; 	// weighted false positives
-	public double wfn; 	// weighted false negatives
-	
 	public int numImages;
 
 	public Evaluation() {
@@ -50,15 +42,7 @@ public class Evaluation implements JSONAware {
 		re = 0.0;
 		tp = 0;
 		fp = 0;
-		fn = 0;
-		
-		wf = 0.0;
-		wpr = 0.0;
-		wre = 0.0;
-		wtp = 0.0;
-		wfp = 0.0;
-		wfn = 0.0;
-		
+		fn = 0;	
 		numImages = 0;
 	}
 	
@@ -66,8 +50,6 @@ public class Evaluation implements JSONAware {
 		double beta = 1.0;
 		int ref_n = this.fn + this.tp;
 		int test_n = this.fp + this.tp;
-		double wref_n = this.wfn + this.wtp;
-		double wtest_n = this.wfp + this.wtp;
 		if (ref_n > 0) {
 			this.re = (double)tp / (double)ref_n;
 			if (test_n > 0) {
@@ -77,22 +59,10 @@ public class Evaluation implements JSONAware {
 				this.f = (1.0 + beta * beta) * (this.pr * this.re) / (beta * beta * this.pr + this.re);
 			}
 		}
-		if (wref_n > 0) {
-			this.wre = wtp / wref_n;
-			if (wtest_n > 0) {
-				this.wpr = wtp / wtest_n;
-			}
-			if (this.wpr > 0 && this.wre > 0) {
-				this.wf = (1.0 + beta * beta) * (this.wpr * this.wre) / (beta * beta * this.wpr + this.wre);
-			}
-		}
 		if (allowNan && ref_n == 0) {
 			this.f = Double.NaN;
 			this.pr = Double.NaN;
 			this.re = Double.NaN;
-			this.wf = Double.NaN;
-			this.wpr = Double.NaN;
-			this.wre = Double.NaN;
 		}
 	}
 
@@ -108,9 +78,6 @@ public class Evaluation implements JSONAware {
 		this.tp = intersection.n;
 		this.fp = candidates.size() - this.tp;
 		this.fn = references.size() - this.tp;
-		this.wtp = intersection.weighted_n;
-		this.wfp = candidates.weightedSize() - this.wtp;
-		this.wfn = references.weightedSize() - this.wtp;	
 		this.calcFScore(allowNan);
 	}
 
@@ -136,13 +103,7 @@ public class Evaluation implements JSONAware {
 		jsonObj.put("f", new Double(f));
 		jsonObj.put("pr", new Double(pr));
 		jsonObj.put("re", new Double(re));
-		
-		jsonObj.put("wtp", new Double(wtp));
-		jsonObj.put("wfp", new Double(wfp));
-		jsonObj.put("wfn", new Double(wfn));		
-		jsonObj.put("wf", new Double(wf));
-		jsonObj.put("wpr", new Double(wpr));
-		jsonObj.put("wre", new Double(wre));
+		jsonObj.put("numImages", new Integer(numImages));
 		return JSONValue.toJSONString(jsonObj);
 	}
 

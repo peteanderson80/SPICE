@@ -29,7 +29,8 @@ Running SPICE with no arguments prints the following help message:
     -threads <num>                   Defaults to the number of processors
     -detailed                        Include propositions for each caption in json output.
     -noSynsets                       Disable METEOR-based synonym matching
-    -subset                          Report results for various semantic tuple subsets
+    -subset                          Report results in <outfile> for various semantic tuple subsets
+    -silent                          Disable stdout results
     
     See README file for additional information and input format details
 

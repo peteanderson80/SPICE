@@ -45,24 +45,20 @@ public class SpiceStats implements JSONAware {
 	protected List<TupleSet> refTuples;
 	protected Map<String, TupleFilter> filters;
 	protected double SPICE;
-	protected DocumentFrequency freq;
 
-	public SpiceStats(Map<String, TupleFilter> filters, DocumentFrequency freq, Boolean isDetailed) {
+	public SpiceStats(Map<String, TupleFilter> filters, Boolean isDetailed) {
 		this.isDetailed = isDetailed;
 		this.imageIds = new ArrayList<Object>();
 		this.scores = new ArrayList<Map<String, Evaluation>>();
 		this.testTuples = new ArrayList<TupleSet>();
 		this.refTuples = new ArrayList<TupleSet>();
 		this.filters = filters;
-		this.freq = freq;
 	}
 	
 	public void score(Object object, SceneGraph test, SceneGraph ref, boolean useSynsets){
 		this.imageIds.add(object);
 		TupleSet testT = new TupleSet(test);
-		testT.setWeights(this.freq);
 		TupleSet refT = new TupleSet(ref);
-		refT.setWeights(this.freq);
 		Evaluation all = new Evaluation(testT, refT, false, useSynsets);
 		if (this.isDetailed){
 			this.testTuples.add(testT);
@@ -72,9 +68,7 @@ public class SpiceStats implements JSONAware {
 		score.put("All", all);
 		for (Entry<String, TupleFilter> pair: filters.entrySet()){
 	    	TupleSet testF = new TupleSet(test, pair.getValue());
-	    	testF.setWeights(this.freq);
 	    	TupleSet refF = new TupleSet(ref, pair.getValue());
-	    	refF.setWeights(this.freq);
 	        score.put(pair.getKey(), new Evaluation(testF, refF, true, useSynsets));
 	    }
 	    this.scores.add(score);
@@ -88,16 +82,10 @@ public class SpiceStats implements JSONAware {
 			result.tp += s.tp;
 			result.fp += s.fp;
 			result.fn += s.fn;
-			result.wtp += s.wtp;
-			result.wfp += s.wfp;
-			result.wfn += s.wfn;
 			if (!Double.isNaN(s.f) && !Double.isNaN(s.pr) && !Double.isNaN(s.re)){
 				result.f += s.f;
 				result.pr += s.pr;
 				result.re += s.re;
-				result.wf += s.wf;
-				result.wpr += s.wpr;
-				result.wre += s.wre;
 				imageCount += 1;
 			}
 		}
@@ -105,17 +93,11 @@ public class SpiceStats implements JSONAware {
 			result.f /= (double) imageCount;
 			result.pr /= (double) imageCount;
 			result.re /= (double) imageCount;
-			result.wf /= (double) imageCount;
-			result.wpr /= (double) imageCount;
-			result.wre /= (double) imageCount;
 			result.numImages = imageCount;
 		} else {
 			result.f = Double.NaN;
 			result.pr = Double.NaN;
 			result.re = Double.NaN;
-			result.wf = Double.NaN;
-			result.wpr = Double.NaN;
-			result.wre = Double.NaN;
 			result.numImages = 0;
 		}
 		return result;
@@ -135,14 +117,6 @@ public class SpiceStats implements JSONAware {
 		output += String.format("  true pos:\t%d\n", spice.tp);
 		output += String.format("  false pos:\t%d\n", spice.fp);
 		output += String.format("  false neg:\t%d\n", spice.fn);
-		
-		output += String.format("  weighted f-score:\t%.3f\n", spice.wf);
-		output += String.format("  weighted precision:\t%.3f\n", spice.wpr);
-		output += String.format("  weighted recall:\t%.3f\n", spice.wre);
-		output += String.format("  weighted true pos:\t%.0f\n", spice.wtp);
-		output += String.format("  weighted false pos:\t%.0f\n", spice.wfp);
-		output += String.format("  weighted false neg:\t%.0f\n", spice.wfn);
-		
 		output += String.format("  num images:\t%d\n", spice.numImages);
 		return output;
 	}

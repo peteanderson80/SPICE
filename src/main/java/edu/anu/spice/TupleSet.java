@@ -71,12 +71,6 @@ public class TupleSet implements JSONAware {
 		Collections.sort(this.tuples);
 	}
 	
-	public void setWeights(DocumentFrequency df){
-		for (SemanticTuple tuple: tuples){
-			tuple.idf = df.idf(tuple);
-		}
-	}
-	
 	public boolean add(SemanticTuple tuple){
 		return this.tuples.add(tuple);
 	}

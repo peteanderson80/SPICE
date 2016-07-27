@@ -107,16 +107,16 @@ public class SpiceScorer {
 		
 		System.err.println("Parsing reference captions");
 		List<SceneGraph> refSgs = parser.parseCaptions(refCaptions, refChunks);
-		DocumentFrequency df = new DocumentFrequency();
-		df.addTuples(parser.loadTuples(refCaptions));
 		System.err.println("Parsing test captions");		
 		List<SceneGraph> testSgs = parser.parseCaptions(testCaptions);
 		
-		this.stats = new SpiceStats(filters, df, args.detailed);
+		this.stats = new SpiceStats(filters, args.detailed);
 		for (int i=0; i<testSgs.size(); ++i) {
 			this.stats.score(image_ids.get(i), testSgs.get(i), refSgs.get(i), args.synsets);
 		}
-		System.out.println(this.stats.toString());
+		if (!args.silent){
+			System.out.println(this.stats.toString());
+		}
 		
 		if (args.outputPath != null) {
 			BufferedWriter outputWriter = new BufferedWriter(new FileWriter(args.outputPath));

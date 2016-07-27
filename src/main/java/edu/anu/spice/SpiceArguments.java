@@ -30,6 +30,7 @@ public class SpiceArguments {
 	public Boolean detailed;
 	public Boolean synsets;
 	public Boolean tupleSubsets;
+	public Boolean silent;
 
 	SpiceArguments() {
 		inputPath = null;
@@ -39,6 +40,7 @@ public class SpiceArguments {
 		detailed = false;
 		synsets = true;
 		tupleSubsets = false;
+		silent = false;
 	}
 
 	static void printUsage() {
@@ -52,7 +54,8 @@ public class SpiceArguments {
 		System.err.println("-threads <num>                   Defaults to the number of processors");
 		System.err.println("-detailed                        Include propositions for each caption in json output.");
 		System.err.println("-noSynsets                       Disable METEOR-based synonym matching");
-		System.err.println("-subset                       	 Report results of various semantic tuple subsets");
+		System.err.println("-subset                       	 Report results in <outfile> for various semantic tuple subsets");
+		System.err.println("-silent                       	 Disable stdout results");
 		System.err.println();
 		System.err.println("See README file for additional information and input format details");
 	}
@@ -79,6 +82,9 @@ public class SpiceArguments {
 				curArg += 1;
 			} else if (args[curArg].equals("-subset")) {
 				this.tupleSubsets = true;
+				curArg += 1;
+			} else if (args[curArg].equals("-silent")) {
+				this.silent = true;
 				curArg += 1;
 			} else {
 				System.err.println("Unknown option \"" + args[curArg] + "\"");
