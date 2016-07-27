@@ -40,11 +40,12 @@ It is recommended to provide a path to an empty directory in the `-cache` argume
 ## Build ##
 To build SPICE and its dependencies from source, and run tests, use Maven with the following command: `mvn clean verify`. The jar file spice-*.jar will be created in the target directory, with required dependencies in target/src.
 
-Building SPICE from source is NOT required as precompiled jar files are available on the [project page] - TODO link.
+Building SPICE from source is NOT required as precompiled jar files are available on the [project page](http://panderson.me/spice).
 
 ## References ##
 If you report SPICE scores, please cite the SPICE paper:
-- [Semantic Propositional Image Caption Evaluation (SPICE)](http://panderson.me/images/SPICE.pdf) [bibtex](http://panderson.me/images/SPICE.bib)
+- [Semantic Propositional Image Caption Evaluation (SPICE)](http://panderson.me/images/SPICE.pdf) 
+- [bibtex](http://panderson.me/images/SPICE.bib)
 
 ## Developers ##
 - [Peter Anderson](http://panderson.me) (Australian National University) (peter.anderson@anu.edu.au)
