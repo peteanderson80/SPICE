@@ -43,6 +43,9 @@ To build SPICE and its dependencies from source, and run tests, use Maven with t
 
 Building SPICE from source is NOT required as precompiled jar files are available on the [project page](http://panderson.me/spice).
 
+## A note on the magnitude of SPICE scores ## 
+On MS COCO, with 5 reference captions scores are typically in the range 0.15 - 0.20. With 40 reference captions, scores are typically in the range 0.03 - 0.07. This is the expected result due to the impact of the recall component of the metric. To make the scores more readable, on the [MS COCO leaderboard](http://mscoco.org/dataset/#captions-leaderboard), C40 SPICE scores are multiplied by 10.
+
 ## References ##
 If you report SPICE scores, please cite the SPICE paper:
 - [Semantic Propositional Image Caption Evaluation (SPICE)](http://panderson.me/images/SPICE.pdf) 
