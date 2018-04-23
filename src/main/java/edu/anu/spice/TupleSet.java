@@ -90,7 +90,7 @@ public class TupleSet implements JSONAware {
 		for (SemanticTuple tup1 : this.tuples) {
 			tup1.truthValue = false;
 			for (SemanticTuple tup2 : o.tuples) {
-				if (tup1.similarTo(tup2)) {
+				if (tup1.similarTo(tup2) && tup2.truthValue != true) {
 					tup1.truthValue = true;
 					tup2.truthValue = true;
 					count.n += 1;
