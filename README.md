@@ -46,6 +46,9 @@ Building SPICE from source is NOT required as precompiled jar files are availabl
 ## A note on the magnitude of SPICE scores ## 
 On MS COCO, with 5 reference captions scores are typically in the range 0.15 - 0.20. With 40 reference captions, scores are typically in the range 0.03 - 0.07. This is the expected result due to the impact of the recall component of the metric. To make the scores more readable, on the [MS COCO leaderboard](http://mscoco.org/dataset/#captions-leaderboard), C40 SPICE scores are multiplied by 10.
 
+## Policy gradient optimization of SPICE ##
+We read with interest a [paper](https://arxiv.org/abs/1612.00370) that directly optimized SPICE (and other metrics) using policy gradients. The results indicated that optimizing SPICE and CIDEr (SPIDEr) produced the best captions, but that optimizing SPICE on its own leads to ungrammatical results. This is because SPICE ignores, and does not penalize repeated scene graph tuples. However, it would be straightforward to adjust the metric to penalize repetition. Contact us for details.
+
 ## References ##
 If you report SPICE scores, please cite the SPICE paper:
 - [Semantic Propositional Image Caption Evaluation (SPICE)](http://panderson.me/images/SPICE.pdf) 
