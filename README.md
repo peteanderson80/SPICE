@@ -13,7 +13,7 @@ Evaluation code for machine-generated image captions.
 
 ## Usage ##
 
-To run SPICE, call the following:
+To run SPICE, call the following (from the target directory):
 
     java -Xmx8G -jar spice-*.jar
 

@@ -30,6 +30,9 @@ import org.json.simple.JSONAware;
 
 public class TupleSet implements JSONAware {	
 	
+	// TupleSet does not use a set implementation since the implementation using 
+	// synonyms is non-trivial. However, SceneGraph merges duplicates and a TupleSet
+	// can only be constructed from a SceneGraph.
 	protected ArrayList<SemanticTuple> tuples;
 	public class Count {
 		public int n;
